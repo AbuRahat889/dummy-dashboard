@@ -4,6 +4,8 @@ import fallbackCarImage from "@/assets/placeholder.webp";
 import Image from "next/image";
 import Link from "next/link";
 import { MediaButton } from "../ui/icon";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 interface CarCardProps {
   content: any;
@@ -12,6 +14,49 @@ interface CarCardProps {
 export default function FoodCard({ content }: CarCardProps) {
   const handleDelete = async (id: string) => {
     console.log(id);
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const toastId = toast.loading("Deleting...");
+          try {
+            // const res = await deleteContent(id).unwrap();
+            toast.dismiss(toastId);
+            // if (res.success) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your category has been deleted.",
+              icon: "success",
+            });
+            // }
+          } catch (error) {
+            toast.dismiss(toastId);
+            toast.error(
+              (typeof error === "string" && error) ||
+                (error && typeof error === "object" && "message" in error
+                  ? (error as any).message
+                  : undefined) ||
+                "Failed to delete Category",
+            );
+          }
+        }
+      });
+    } catch (error) {
+      toast.error(
+        (typeof error === "string" && error) ||
+          (error && typeof error === "object" && "message" in error
+            ? (error as any).message
+            : undefined) ||
+          "Failed to delete car",
+      );
+    }
   };
 
   return (
@@ -19,7 +64,7 @@ export default function FoodCard({ content }: CarCardProps) {
       {/* Image */}
       <div className="relative">
         <Image
-          src={fallbackCarImage}
+          src={content?.image || fallbackCarImage}
           alt="product image"
           className="object-fill h-48 w-full"
           height={500}

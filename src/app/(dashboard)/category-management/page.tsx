@@ -3,7 +3,7 @@ import React from "react";
 
 export default function page() {
   return (
-    <div>
+    <div className="px-3 md:px-0">
       <CategoryManagement />
     </div>
   );

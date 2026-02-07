@@ -11,6 +11,29 @@ import AddCategory from "./AddCategory";
 import CategoryCard from "./CategoryCard";
 import CategorySk from "../Skletone/CategorySk";
 
+export const dummyCategories = [
+  {
+    id: "1",
+    name: "Beverages",
+    image: "", // You can leave empty to use default placeholder
+  },
+  {
+    id: "2",
+    name: "Snacks",
+    image: "",
+  },
+  {
+    id: "3",
+    name: "Desserts",
+    image: "",
+  },
+  {
+    id: "4",
+    name: "Fast Food",
+    image: "",
+  },
+];
+
 export default function CategoryManagement() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +44,7 @@ export default function CategoryManagement() {
   });
 
   const totalPages = data?.data?.meta?.totalPages;
-  const currentItems = data?.data?.data || [];
+  const currentItems = dummyCategories || data?.data?.data || [];
 
   return (
     <div className="w-[98%] h-full ">
@@ -36,7 +59,7 @@ export default function CategoryManagement() {
         {isLoading || isFetching ? (
           <CategorySk />
         ) : currentItems?.length > 0 ? (
-          <div className="flex items-center flex-wrap gap-10">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-8 gap-5 h-full overflow-y-auto">
             {currentItems?.map((content: any) => (
               <CategoryCard key={content.id} categories={content} />
             ))}

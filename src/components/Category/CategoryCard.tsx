@@ -2,14 +2,15 @@
 
 import defaultImage from "@/assets/placeholder.webp";
 import { cn } from "@/lib/utils";
-import { useDeleteCategoryMutation } from "@/redux/api/categories";
 import Image from "next/image";
-import { toast } from "react-toastify";
-import Swal from "sweetalert2";
+import { useState } from "react";
 import { MediaButton } from "../ui/icon";
 import Modal from "../ui/modal";
 import AddCategory from "./AddCategory";
-import { useState } from "react";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+
+import categoryImage from "@/assets/Group 1000001609.svg";
 
 interface CategoryCardProps {
   categories: {
@@ -22,9 +23,8 @@ interface CategoryCardProps {
 export default function CategoryCard({ categories }: CategoryCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [deleteContent] = useDeleteCategoryMutation();
-
   const handleDelete = async (id: string) => {
+    console.log(id);
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -38,15 +38,15 @@ export default function CategoryCard({ categories }: CategoryCardProps) {
         if (result.isConfirmed) {
           const toastId = toast.loading("Deleting...");
           try {
-            const res = await deleteContent(id).unwrap();
+            // const res = await deleteContent(id).unwrap();
             toast.dismiss(toastId);
-            if (res.success) {
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your category has been deleted.",
-                icon: "success",
-              });
-            }
+            // if (res.success) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your category has been deleted.",
+              icon: "success",
+            });
+            // }
           } catch (error) {
             toast.dismiss(toastId);
             toast.error(
@@ -54,7 +54,7 @@ export default function CategoryCard({ categories }: CategoryCardProps) {
                 (error && typeof error === "object" && "message" in error
                   ? (error as any).message
                   : undefined) ||
-                "Failed to delete Category"
+                "Failed to delete Category",
             );
           }
         }
@@ -65,21 +65,24 @@ export default function CategoryCard({ categories }: CategoryCardProps) {
           (error && typeof error === "object" && "message" in error
             ? (error as any).message
             : undefined) ||
-          "Failed to delete car"
+          "Failed to delete car",
       );
     }
   };
-
   return (
     <div>
-      <div className={cn("rounded-lg shadow-cardboxshadow bg-white w-44 ")}>
+      <div
+        className={cn(
+          "rounded-lg shadow-cardboxshadow bg-white w-full md:w-44 ",
+        )}
+      >
         <div className="w-full">
           <Image
-            src={categories?.image || defaultImage}
+            src={categoryImage || categories?.image || defaultImage}
             alt="category"
             width={500}
             height={500}
-            className="w-full h-24 mb-2 rounded-t-lg"
+            className="h-24 w-24 mx-auto mb-2 rounded-t-lg"
           />
         </div>
         <p className="text-center text-[#151B27] text-base font-semibold leading-[150%]">

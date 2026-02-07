@@ -10,6 +10,10 @@ import Pagination from "../ui/Pagination";
 import { SearchBar } from "../ui/searchBar";
 import FoodCard from "./FoodCard";
 
+import p1 from "@/assets/images (6).jpg";
+import p12 from "@/assets/images (7).jpg";
+import p13 from "@/assets/download (2).jpg";
+
 export default function FoodManagement() {
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,7 +22,7 @@ export default function FoodManagement() {
     {
       id: "1",
       name: "Burger Deluxe",
-      image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd",
+      image: p1,
       totalRaters: 120,
       avgRating: 4.5,
       price: 12.99,
@@ -27,7 +31,7 @@ export default function FoodManagement() {
     {
       id: "2",
       name: "Cheese Pizza",
-      image: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e",
+      image: p12,
       totalRaters: 98,
       avgRating: 4.2,
       price: 15.5,
@@ -36,7 +40,7 @@ export default function FoodManagement() {
     {
       id: "3",
       name: "Fried Chicken",
-      image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58",
+      image: p13,
       totalRaters: 76,
       avgRating: 4.1,
       price: 10.75,
@@ -45,7 +49,7 @@ export default function FoodManagement() {
     {
       id: "4",
       name: "Pasta Alfredo",
-      image: "https://images.unsplash.com/photo-1645112411341-6c4fd023882a",
+      image: p1,
       totalRaters: 65,
       avgRating: 4.3,
       price: 14.25,
@@ -68,12 +72,12 @@ export default function FoodManagement() {
 
   return (
     <div className="w-[98%] h-full overflow-y-auto pb-20">
-      <div className="flex items-center justify-between gap-5 mb-4">
+      <div className="flex items-center justify-between gap-3 md:gap-5 mb-4">
         <SearchBar searchValue={searchValue} onSearchChange={onSearchChange} />
 
         <Button href="/add-product?type=Add" variant="default" className="w-64">
           <FaPlus />
-          Create Medicine Item
+          Add Product
         </Button>
       </div>
 
