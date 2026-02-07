@@ -15,20 +15,23 @@ import { CustomDropdown } from "../ui/dropdown";
 import { FormInput } from "../ui/Input";
 import Loader from "../ui/Loader";
 import UploadMedia from "../ui/UploadMedia";
+import dynamic from "next/dynamic";
+import "suneditor/dist/css/suneditor.min.css";
 
 interface addCarForm {
-  foodName: string;
+  productName: string;
   price: number;
+  quantity: number;
   description: string;
   image: {
-    urls: string;
-    file: File;
+    file: File | null;
+    url?: string;
   };
 }
 
 export default function AddProductForm() {
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
-    undefined
+    undefined,
   );
   const methods = useForm<addCarForm>({
     defaultValues: {
@@ -36,11 +39,16 @@ export default function AddProductForm() {
     },
   });
 
-  const { register, handleSubmit } = methods;
+  const { handleSubmit } = methods;
   const params = useSearchParams();
   const type = params.get("type");
   const id = params.get("id");
   const router = useRouter();
+
+  // Dynamic import (important for Next.js)
+  const SunEditor = dynamic(() => import("suneditor-react"), {
+    ssr: false,
+  });
 
   const { data: productData } = useGetSingleProductsQuery(id, { skip: !id });
 
@@ -57,8 +65,9 @@ export default function AddProductForm() {
     if (productData?.data && type === "Edit") {
       const product = productData?.data;
       methods.reset({
-        foodName: product.name,
+        productName: product.name,
         price: product.price,
+        quantity: product.quantity,
         description: product.description,
       });
       setSelectedCategory(product.category?.id);
@@ -72,7 +81,8 @@ export default function AddProductForm() {
 
   const onSubmit: SubmitHandler<addCarForm> = async (data) => {
     const serviceInfo = {
-      name: data.foodName,
+      name: data.productName,
+      quantity: data.quantity,
       categoryId: selectedCategory,
       description: data.description,
       price: data.price,
@@ -111,8 +121,8 @@ export default function AddProductForm() {
 
             <div className="bg-white p-8  rounded-xl w-full space-y-3 ">
               <FormInput<addCarForm>
-                name="foodName"
-                label="Personal Hygiene"
+                name="productName"
+                label="Product Name"
                 type="text"
                 placeholder="Write here"
                 className="bg-[#eaeef2]"
@@ -124,17 +134,39 @@ export default function AddProductForm() {
                 placeholder="Write here"
                 className="bg-[#eaeef2]"
               />
+              <FormInput<addCarForm>
+                name="quantity"
+                label="Quantity"
+                type="number"
+                placeholder="Write here"
+                className="bg-[#eaeef2]"
+              />
 
               <CustomDropdown
                 options={formattedCategories}
                 value={selectedCategory}
                 onChange={setSelectedCategory}
                 placeholder="Select Category"
-                label="Food Category"
+                label="Product Category"
               />
 
+              <div>
+                <SunEditor
+                  height="200px"
+                  setOptions={{
+                    buttonList: [
+                      ["undo", "redo"],
+                      ["bold", "underline", "italic"],
+                      ["list", "align"],
+                      ["link", "image"],
+                      ["removeFormat"],
+                    ],
+                  }}
+                  onChange={(content) => console.log(content)}
+                />
+              </div>
               <div className="">
-                <label
+                {/* <label
                   htmlFor="description"
                   className="text-sm font-medium text-gray-700"
                 >
@@ -145,11 +177,11 @@ export default function AddProductForm() {
                   placeholder="Write here"
                   className="bg-[#eaeef2] px-3 py-3 border-0 rounded-lg min-h-[130px] resize-none w-full outline-none mb-5"
                   {...register("description")}
-                />
+                /> */}
                 <UploadMedia
                   name="image"
                   label="Upload Image"
-                  default={productData?.data?.image}
+                  // default={productData?.data?.image}
                 />
               </div>
             </div>
@@ -159,7 +191,7 @@ export default function AddProductForm() {
               type="submit"
               className="bg-primaryColor text-white py-5 rounded-lg font-medium w-full"
             >
-              {isLoading || isUpdating ? <Loader /> : "Create Medicin Item"}
+              {isLoading || isUpdating ? <Loader /> : "Create Product Item"}
             </Button>
           </form>
         </FormProvider>
