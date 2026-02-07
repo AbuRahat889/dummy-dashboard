@@ -1,10 +1,7 @@
 "use client";
-import { useUpdateOrdersMutation } from "@/redux/api/orderApi";
-import { toast } from "react-toastify";
-import TableSkeleton from "../Skletone/Table";
 import { useState } from "react";
+import TableSkeleton from "../Skletone/Table";
 import Modal from "../ui/modal";
-import OrderDetails from "./OrderDetails";
 
 const statusColors: Record<string, string> = {
   PENDING: "bg-yellow-100 text-yellow-800",
@@ -13,47 +10,94 @@ const statusColors: Record<string, string> = {
   CANCELLED: "bg-red-100 text-red-800",
 };
 
-interface Props {
-  currentItems?: any;
-  isLoading: boolean;
-  isFetching: boolean;
-  isError: boolean;
-}
+// Dummy orders
+const dummyOrders = [
+  {
+    id: "1",
+    user: { fullName: "John Doe", phoneNumber: "123456789" },
+    street: "123 Main St",
+    city: "New York",
+    OrderItem: [{}, {}],
+    totalAmount: 25.98,
+    deliveryFee: 5,
+    tax: 2,
+    createdAt: "2026-02-05T10:00:00Z",
+    status: "PENDING",
+  },
+  {
+    id: "2",
+    user: { fullName: "Jane Smith", phoneNumber: "987654321" },
+    street: "456 Park Ave",
+    city: "Los Angeles",
+    OrderItem: [{}],
+    totalAmount: 15.5,
+    deliveryFee: 3,
+    tax: 1.5,
+    createdAt: "2026-02-04T14:30:00Z",
+    status: "PROCESSING",
+  },
+  {
+    id: "3",
+    user: { fullName: "Mike Johnson", phoneNumber: "456789123" },
+    street: "789 Elm St",
+    city: "Chicago",
+    OrderItem: [{}, {}, {}],
+    totalAmount: 32.25,
+    deliveryFee: 6,
+    tax: 2.5,
+    createdAt: "2026-02-03T09:15:00Z",
+    status: "DELIVERED",
+  },
+  {
+    id: "4",
+    user: { fullName: "Emily Brown", phoneNumber: "321654987" },
+    street: "101 Pine St",
+    city: "Houston",
+    OrderItem: [{}],
+    totalAmount: 14.25,
+    deliveryFee: 2,
+    tax: 1,
+    createdAt: "2026-02-02T12:45:00Z",
+    status: "CANCELLED",
+  },
+  {
+    id: "5",
+    user: { fullName: "David Wilson", phoneNumber: "789123456" },
+    street: "202 Oak St",
+    city: "San Francisco",
+    OrderItem: [{}, {}],
+    totalAmount: 21.98,
+    deliveryFee: 4,
+    tax: 1.8,
+    createdAt: "2026-02-01T16:20:00Z",
+    status: "PENDING",
+  },
+];
 
-const OrderTable = ({
-  currentItems,
-  isLoading,
-  isFetching,
-  isError,
-}: Props) => {
+const OrderTable = ({ isLoading = false }: { isLoading?: boolean }) => {
+  const [orders, setOrders] = useState(dummyOrders);
   const [loadingAction, setLoadingAction] = useState<{
     orderId: string;
     action: "CANCELLED" | "DELIVERED" | "PROCESSING" | null;
   }>({ orderId: "", action: null });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [item, setItem] = useState<any>(null);
+  const [, setItem] = useState<any>(null);
 
-  const [updateOrderStatus, { isLoading: updateing }] =
-    useUpdateOrdersMutation();
-
-  const handleStatusChange = async (orderId: string, newStatus: string) => {
+  const handleStatusChange = (orderId: string, newStatus: string) => {
     setLoadingAction({ orderId, action: newStatus as any });
-    try {
-      const updateInfo = {
-        orderId: orderId,
-        status: newStatus,
-      };
-      const res = await updateOrderStatus(updateInfo).unwrap();
-      if (res?.success) {
-        toast.success(res?.message || "Status updated successfully");
-      }
-    } catch (error) {
-      toast.error((error as string) || "Failed to update status");
-    }
+
+    setOrders((prev) =>
+      prev.map((o) => (o.id === orderId ? { ...o, status: newStatus } : o)),
+    );
+
+    // Simulate API delay
+    setTimeout(() => {
+      setLoadingAction({ orderId: "", action: null });
+    }, 500);
   };
 
-  if (isLoading || isFetching) return <TableSkeleton />;
-  if (isError) return <p>Failed to load orders</p>;
+  if (isLoading) return <TableSkeleton />;
+
   return (
     <div className="">
       <div className="relative overflow-x-auto rounded-md p-6 bg-white ">
@@ -74,32 +118,27 @@ const OrderTable = ({
             </tr>
           </thead>
           <tbody>
-            {currentItems.map((order: any, index: number) => (
+            {orders.map((order, index) => (
               <tr key={index} className="text-sm hover:bg-red-50 border-b">
                 <td className="py-4 px-4 text-left">{index + 1}</td>
-
-                <td className="py-4 px-4 text-left">{order.user?.fullName}</td>
-
+                <td className="py-4 px-4 text-left">{order.user.fullName}</td>
                 <td className="py-4 px-4 text-left">
-                  {order.user?.phoneNumber}
+                  {order.user.phoneNumber}
                 </td>
                 <td className="py-4 px-4 text-left">
                   {order.street}, {order.city}
                 </td>
-
                 <td className="py-4 px-4 text-left">
-                  {order?.OrderItem?.length}
+                  {order.OrderItem.length}
                 </td>
-                <td className="py-4 px-4 text-left">{order?.totalAmount}</td>
-                <td className="py-4 px-4 text-left">{order?.deliveryFee}</td>
-                <td className="py-4 px-4 text-left">{order?.tax}</td>
-
+                <td className="py-4 px-4 text-left">{order.totalAmount}</td>
+                <td className="py-4 px-4 text-left">{order.deliveryFee}</td>
+                <td className="py-4 px-4 text-left">{order.tax}</td>
                 <td className="py-4 px-4 text-left">
                   {new Date(order.createdAt)
                     .toLocaleDateString("en-GB")
                     .replace(/\//g, "-")}
                 </td>
-
                 <td className="py-4 px-4 text-left">
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-medium ${
@@ -109,7 +148,6 @@ const OrderTable = ({
                     {order.status}
                   </span>
                 </td>
-
                 <td className="py-4 px-4 text-left">
                   <div className="flex gap-2">
                     {(order.status === "PENDING" ||
@@ -121,8 +159,7 @@ const OrderTable = ({
                           }
                           className="bg-[#fae6e6] rounded-full text-[#cf0607] px-4 py-1"
                         >
-                          {updateing &&
-                          loadingAction.orderId === order.id &&
+                          {loadingAction.orderId === order.id &&
                           loadingAction.action === "CANCELLED"
                             ? "Updating..."
                             : "Cancel"}
@@ -134,15 +171,14 @@ const OrderTable = ({
                               order.id,
                               order.status === "PENDING"
                                 ? "PROCESSING"
-                                : "DELIVERED"
+                                : "DELIVERED",
                             )
                           }
                           className="bg-primaryColor rounded-full text-white px-4 py-1"
                         >
-                          {(updateing &&
-                            loadingAction.orderId === order.id &&
-                            loadingAction.action === "PROCESSING") ||
-                          loadingAction.action === "DELIVERED"
+                          {loadingAction.orderId === order.id &&
+                          (loadingAction.action === "PROCESSING" ||
+                            loadingAction.action === "DELIVERED")
                             ? "Updating..."
                             : "Accept"}
                         </button>
@@ -156,7 +192,7 @@ const OrderTable = ({
                       }}
                       className="bg-[#e9effd] rounded-full text-[#2563eb] px-4 py-1"
                     >
-                      view details
+                      View Details
                     </button>
                   </div>
                 </td>
@@ -167,7 +203,8 @@ const OrderTable = ({
       </div>
 
       <Modal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen}>
-        <OrderDetails item={item} />
+        {/* <OrderDetails item={item} /> */}
+        <div>show details for order Here </div>
       </Modal>
     </div>
   );

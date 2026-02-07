@@ -176,175 +176,175 @@ export const navigation = [
     ),
   },
 
-  {
-    label: "Transactions",
-    route: "/transactions",
-    role: ["SUPERADMIN"],
-    iconPath: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="28"
-        height="28"
-        viewBox="0 0 28 28"
-        fill="none"
-      >
-        <path
-          d="M3.5 14C3.5 10.13 6.63 7 10.5 7L9.33333 9.33333"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M3.5 14C3.5 10.13 6.63 7 10.5 7L9.33333 9.33333"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeOpacity="0.2"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M24.5 14C24.5 17.8699 21.3699 21 17.5 21L18.6667 18.6667"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M24.5 14C24.5 17.8699 21.3699 21 17.5 21L18.6667 18.6667"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeOpacity="0.2"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M21 10.5H17.5C15.8501 10.5 15.0251 10.5 14.5125 9.98744C14 9.47487 14 8.64991 14 7C14 5.35009 14 4.52513 14.5125 4.01256C15.0251 3.5 15.8501 3.5 17.5 3.5H21C22.6499 3.5 23.4748 3.5 23.9875 4.01256C24.5 4.52513 24.5 5.35009 24.5 7C24.5 8.64991 24.5 9.47487 23.9875 9.98744C23.4748 10.5 22.6499 10.5 21 10.5Z"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M21 10.5H17.5C15.8501 10.5 15.0251 10.5 14.5125 9.98744C14 9.47487 14 8.64991 14 7C14 5.35009 14 4.52513 14.5125 4.01256C15.0251 3.5 15.8501 3.5 17.5 3.5H21C22.6499 3.5 23.4748 3.5 23.9875 4.01256C24.5 4.52513 24.5 5.35009 24.5 7C24.5 8.64991 24.5 9.47487 23.9875 9.98744C23.4748 10.5 22.6499 10.5 21 10.5Z"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeOpacity="0.2"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M10.5 24.5H7C5.35009 24.5 4.52513 24.5 4.01256 23.9875C3.5 23.4748 3.5 22.6499 3.5 21C3.5 19.3501 3.5 18.5251 4.01256 18.0125C4.52513 17.5 5.35009 17.5 7 17.5H10.5C12.1499 17.5 12.9749 17.5 13.4875 18.0125C14 18.5251 14 19.3501 14 21C14 22.6499 14 23.4748 13.4875 23.9875C12.9749 24.5 12.1499 24.5 10.5 24.5Z"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M10.5 24.5H7C5.35009 24.5 4.52513 24.5 4.01256 23.9875C3.5 23.4748 3.5 22.6499 3.5 21C3.5 19.3501 3.5 18.5251 4.01256 18.0125C4.52513 17.5 5.35009 17.5 7 17.5H10.5C12.1499 17.5 12.9749 17.5 13.4875 18.0125C14 18.5251 14 19.3501 14 21C14 22.6499 14 23.4748 13.4875 23.9875C12.9749 24.5 12.1499 24.5 10.5 24.5Z"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeOpacity="0.2"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M19.2498 7H19.2602"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M19.2498 7H19.2602"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeOpacity="0.2"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M8.74973 21H8.7602"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M8.74973 21H8.7602"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeOpacity="0.2"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-    whiteIcon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="28"
-        height="28"
-        viewBox="0 0 28 28"
-        fill="none"
-      >
-        <path
-          d="M3.5 14C3.5 10.13 6.63 7 10.5 7L9.33333 9.33333"
-          stroke="white"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M24.5 14C24.5 17.8699 21.3699 21 17.5 21L18.6667 18.6667"
-          stroke="white"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M21 10.5H17.5C15.8501 10.5 15.0251 10.5 14.5125 9.98744C14 9.47487 14 8.64991 14 7C14 5.35009 14 4.52513 14.5125 4.01256C15.0251 3.5 15.8501 3.5 17.5 3.5H21C22.6499 3.5 23.4748 3.5 23.9875 4.01256C24.5 4.52513 24.5 5.35009 24.5 7C24.5 8.64991 24.5 9.47487 23.9875 9.98744C23.4748 10.5 22.6499 10.5 21 10.5Z"
-          stroke="white"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M10.5 24.5H7C5.35009 24.5 4.52513 24.5 4.01256 23.9875C3.5 23.4748 3.5 22.6499 3.5 21C3.5 19.3501 3.5 18.5251 4.01256 18.0125C4.52513 17.5 5.35009 17.5 7 17.5H10.5C12.1499 17.5 12.9749 17.5 13.4875 18.0125C14 18.5251 14 19.3501 14 21C14 22.6499 14 23.4748 13.4875 23.9875C12.9749 24.5 12.1499 24.5 10.5 24.5Z"
-          stroke="white"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M19.2498 7H19.2602"
-          stroke="white"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M8.74973 21H8.7602"
-          stroke="white"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
+  // {
+  //   label: "Transactions",
+  //   route: "/transactions",
+  //   role: ["SUPERADMIN"],
+  //   iconPath: (
+  //     <svg
+  //       xmlns="http://www.w3.org/2000/svg"
+  //       width="28"
+  //       height="28"
+  //       viewBox="0 0 28 28"
+  //       fill="none"
+  //     >
+  //       <path
+  //         d="M3.5 14C3.5 10.13 6.63 7 10.5 7L9.33333 9.33333"
+  //         stroke="currentColor"
+  //         className="hover:text-white"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M3.5 14C3.5 10.13 6.63 7 10.5 7L9.33333 9.33333"
+  //         stroke="currentColor"
+  //         className="hover:text-white"
+  //         strokeOpacity="0.2"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M24.5 14C24.5 17.8699 21.3699 21 17.5 21L18.6667 18.6667"
+  //         stroke="currentColor"
+  //         className="hover:text-white"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M24.5 14C24.5 17.8699 21.3699 21 17.5 21L18.6667 18.6667"
+  //         stroke="currentColor"
+  //         className="hover:text-white"
+  //         strokeOpacity="0.2"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M21 10.5H17.5C15.8501 10.5 15.0251 10.5 14.5125 9.98744C14 9.47487 14 8.64991 14 7C14 5.35009 14 4.52513 14.5125 4.01256C15.0251 3.5 15.8501 3.5 17.5 3.5H21C22.6499 3.5 23.4748 3.5 23.9875 4.01256C24.5 4.52513 24.5 5.35009 24.5 7C24.5 8.64991 24.5 9.47487 23.9875 9.98744C23.4748 10.5 22.6499 10.5 21 10.5Z"
+  //         stroke="currentColor"
+  //         className="hover:text-white"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M21 10.5H17.5C15.8501 10.5 15.0251 10.5 14.5125 9.98744C14 9.47487 14 8.64991 14 7C14 5.35009 14 4.52513 14.5125 4.01256C15.0251 3.5 15.8501 3.5 17.5 3.5H21C22.6499 3.5 23.4748 3.5 23.9875 4.01256C24.5 4.52513 24.5 5.35009 24.5 7C24.5 8.64991 24.5 9.47487 23.9875 9.98744C23.4748 10.5 22.6499 10.5 21 10.5Z"
+  //         stroke="currentColor"
+  //         className="hover:text-white"
+  //         strokeOpacity="0.2"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M10.5 24.5H7C5.35009 24.5 4.52513 24.5 4.01256 23.9875C3.5 23.4748 3.5 22.6499 3.5 21C3.5 19.3501 3.5 18.5251 4.01256 18.0125C4.52513 17.5 5.35009 17.5 7 17.5H10.5C12.1499 17.5 12.9749 17.5 13.4875 18.0125C14 18.5251 14 19.3501 14 21C14 22.6499 14 23.4748 13.4875 23.9875C12.9749 24.5 12.1499 24.5 10.5 24.5Z"
+  //         stroke="currentColor"
+  //         className="hover:text-white"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M10.5 24.5H7C5.35009 24.5 4.52513 24.5 4.01256 23.9875C3.5 23.4748 3.5 22.6499 3.5 21C3.5 19.3501 3.5 18.5251 4.01256 18.0125C4.52513 17.5 5.35009 17.5 7 17.5H10.5C12.1499 17.5 12.9749 17.5 13.4875 18.0125C14 18.5251 14 19.3501 14 21C14 22.6499 14 23.4748 13.4875 23.9875C12.9749 24.5 12.1499 24.5 10.5 24.5Z"
+  //         stroke="currentColor"
+  //         className="hover:text-white"
+  //         strokeOpacity="0.2"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M19.2498 7H19.2602"
+  //         stroke="currentColor"
+  //         className="hover:text-white"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M19.2498 7H19.2602"
+  //         stroke="currentColor"
+  //         className="hover:text-white"
+  //         strokeOpacity="0.2"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M8.74973 21H8.7602"
+  //         stroke="currentColor"
+  //         className="hover:text-white"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M8.74973 21H8.7602"
+  //         stroke="currentColor"
+  //         className="hover:text-white"
+  //         strokeOpacity="0.2"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //     </svg>
+  //   ),
+  //   whiteIcon: (
+  //     <svg
+  //       xmlns="http://www.w3.org/2000/svg"
+  //       width="28"
+  //       height="28"
+  //       viewBox="0 0 28 28"
+  //       fill="none"
+  //     >
+  //       <path
+  //         d="M3.5 14C3.5 10.13 6.63 7 10.5 7L9.33333 9.33333"
+  //         stroke="white"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M24.5 14C24.5 17.8699 21.3699 21 17.5 21L18.6667 18.6667"
+  //         stroke="white"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M21 10.5H17.5C15.8501 10.5 15.0251 10.5 14.5125 9.98744C14 9.47487 14 8.64991 14 7C14 5.35009 14 4.52513 14.5125 4.01256C15.0251 3.5 15.8501 3.5 17.5 3.5H21C22.6499 3.5 23.4748 3.5 23.9875 4.01256C24.5 4.52513 24.5 5.35009 24.5 7C24.5 8.64991 24.5 9.47487 23.9875 9.98744C23.4748 10.5 22.6499 10.5 21 10.5Z"
+  //         stroke="white"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M10.5 24.5H7C5.35009 24.5 4.52513 24.5 4.01256 23.9875C3.5 23.4748 3.5 22.6499 3.5 21C3.5 19.3501 3.5 18.5251 4.01256 18.0125C4.52513 17.5 5.35009 17.5 7 17.5H10.5C12.1499 17.5 12.9749 17.5 13.4875 18.0125C14 18.5251 14 19.3501 14 21C14 22.6499 14 23.4748 13.4875 23.9875C12.9749 24.5 12.1499 24.5 10.5 24.5Z"
+  //         stroke="white"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M19.2498 7H19.2602"
+  //         stroke="white"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M8.74973 21H8.7602"
+  //         stroke="white"
+  //         strokeWidth="1.75"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //     </svg>
+  //   ),
+  // },
   {
     label: "Medicine Category",
     route: "/category-management",
@@ -445,102 +445,6 @@ export const navigation = [
           d="M16.0155 4.01837L18.0686 8.15852C18.3486 8.73484 19.0952 9.28764 19.7252 9.39349L23.4464 10.0169C25.8261 10.4168 26.3861 12.1575 24.6713 13.8747L21.7783 16.7916C21.2883 17.2856 21.0201 18.2383 21.1716 18.9206L21.9999 22.5314C22.6532 25.3895 21.1483 26.4952 18.6403 25.0014L15.1523 22.9196C14.5224 22.5432 13.4842 22.5432 12.8425 22.9196L9.35464 25.0014C6.85824 26.4952 5.34175 25.3777 5.99502 22.5314L6.82326 18.9206C6.9749 18.2383 6.7066 17.2856 6.21665 16.7916L3.32364 13.8747C1.62049 12.1575 2.16877 10.4168 4.5485 10.0169L8.26976 9.39349C8.88802 9.28764 9.63461 8.73484 9.91457 8.15852L11.9677 4.01837C13.0875 1.77187 14.9073 1.77187 16.0155 4.01837Z"
           stroke="white"
           strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    label: "Notifications",
-    route: "/notifications",
-    role: ["SUPERADMIN"],
-    iconPath: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="28"
-        height="28"
-        viewBox="0 0 28 28"
-        fill="none"
-      >
-        <path
-          d="M22.1667 20.9998V11.0832C22.1667 6.57285 18.5103 2.9165 14 2.9165C9.48967 2.9165 5.83333 6.57285 5.83333 11.0832V20.9998"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M22.1667 20.9998V11.0832C22.1667 6.57285 18.5103 2.9165 14 2.9165C9.48967 2.9165 5.83333 6.57285 5.83333 11.0832V20.9998"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeOpacity="0.2"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M23.9167 21H4.08333"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M23.9167 21H4.08333"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeOpacity="0.2"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M15.75 23.3335C15.75 24.3 14.9665 25.0835 14 25.0835M14 25.0835C13.0335 25.0835 12.25 24.3 12.25 23.3335M14 25.0835V23.3335"
-          className="hover:text-white"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M15.75 23.3335C15.75 24.3 14.9665 25.0835 14 25.0835M14 25.0835C13.0335 25.0835 12.25 24.3 12.25 23.3335M14 25.0835V23.3335"
-          stroke="currentColor"
-          className="hover:text-white"
-          strokeOpacity="0.2"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-    whiteIcon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="28"
-        height="28"
-        viewBox="0 0 28 28"
-        fill="none"
-      >
-        <path
-          d="M22.1667 20.9994V11.0827C22.1667 6.57236 18.5104 2.91602 14 2.91602C9.48972 2.91602 5.83337 6.57236 5.83337 11.0827V20.9994"
-          stroke="white"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M23.9167 21H4.08337"
-          stroke="white"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M15.75 23.334C15.75 24.3005 14.9665 25.084 14 25.084M14 25.084C13.0335 25.084 12.25 24.3005 12.25 23.334M14 25.084V23.334"
-          stroke="white"
-          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />

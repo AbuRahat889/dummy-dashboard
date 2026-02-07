@@ -11,7 +11,7 @@ export default function OrderList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTab, setActiveTab] = useState(1);
 
-  const { data, isLoading, isError, isFetching } = useGetAllOrdersQuery({
+  const { data } = useGetAllOrdersQuery({
     filter:
       activeTab === 1 ? "PENDING" : activeTab === 2 ? "PROCESSING" : undefined,
     page: currentPage,
@@ -19,7 +19,7 @@ export default function OrderList() {
   });
 
   const totalPages = data?.data?.meta?.totalPage;
-  const currentItems = data?.data?.data || [];
+  // const currentItems = data?.data?.data || [];
   const onSearchChange = (value: string) => {
     setSearchValue(value);
   };
@@ -30,10 +30,10 @@ export default function OrderList() {
       label: "Pending",
       children: (
         <OrderTable
-          currentItems={currentItems}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          isError={isError}
+        // currentItems={currentItems}
+        // isLoading={isLoading}
+        // isFetching={isFetching}
+        // isError={isError}
         />
       ),
     },
@@ -42,10 +42,10 @@ export default function OrderList() {
       label: "Processing",
       children: (
         <OrderTable
-          currentItems={currentItems}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          isError={isError}
+        // currentItems={currentItems}
+        // isLoading={isLoading}
+        // isFetching={isFetching}
+        // isError={isError}
         />
       ),
     },
@@ -54,10 +54,10 @@ export default function OrderList() {
       label: "History",
       children: (
         <OrderTable
-          currentItems={currentItems}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          isError={isError}
+        // currentItems={currentItems}
+        // isLoading={isLoading}
+        // isFetching={isFetching}
+        // isError={isError}
         />
       ),
     },
