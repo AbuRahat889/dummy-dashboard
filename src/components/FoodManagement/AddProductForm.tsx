@@ -1,32 +1,33 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { handleApiResponse } from "@/lib/handleApiResponse";
 import { useGetAllCategoriesQuery } from "@/redux/api/categories";
 import {
   useCreateProductsMutation,
   useGetSingleProductsQuery,
   useUpdateProductsMutation,
 } from "@/redux/api/productsApi";
+import dynamic from "next/dynamic";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
-import { toast } from "react-toastify";
+import "suneditor/dist/css/suneditor.min.css";
 import { CustomDropdown } from "../ui/dropdown";
 import { FormInput } from "../ui/Input";
 import Loader from "../ui/Loader";
 import UploadMedia from "../ui/UploadMedia";
-import dynamic from "next/dynamic";
-import "suneditor/dist/css/suneditor.min.css";
 
 interface addCarForm {
   productName: string;
   price: number;
+  discountPrice: number;
   quantity: number;
   description: string;
-  image: {
+  image: Array<{
     file: File | null;
     url?: string;
-  };
+  }>;
 }
 
 export default function AddProductForm() {
@@ -58,17 +59,19 @@ export default function AddProductForm() {
   const formattedCategories =
     category?.data?.data?.map((item: any) => ({
       value: item?.id,
-      label: item?.name,
+      label: item?.categoryName,
     })) || [];
-  /// set default values if editing
+
+  // set default value for edit form
   useEffect(() => {
     if (productData?.data && type === "Edit") {
       const product = productData?.data;
       methods.reset({
-        productName: product.name,
-        price: product.price,
-        quantity: product.quantity,
-        description: product.description,
+        productName: product.productName,
+        price: product.productPrice,
+        discountPrice: product.discountPrice,
+        quantity: product.productStock,
+        description: product.productDescription,
       });
       setSelectedCategory(product.category?.id);
     }
@@ -81,31 +84,32 @@ export default function AddProductForm() {
 
   const onSubmit: SubmitHandler<addCarForm> = async (data) => {
     const serviceInfo = {
-      name: data.productName,
-      quantity: data.quantity,
-      categoryId: selectedCategory,
-      description: data.description,
-      price: data.price,
+      productName: data.productName,
+      productCategory: selectedCategory,
+      productDescription: data.description,
+      productPrice: data.price,
+      discountPrice: data.discountPrice,
+      productStock: data.quantity,
     };
-    formData.append("bodyData", JSON.stringify(serviceInfo));
-    data?.image?.file && formData.append("productImage", data?.image?.file);
 
-    try {
-      if (type === "Edit" && id) {
-        const res = await updateFN({ id, data: formData }).unwrap();
-        if (res?.success) {
-          toast.success(res?.message || "Product Updated Successfully");
-          router.push("/medicine-list");
-        }
-      } else {
-        const res = await createProuduceFN(formData).unwrap();
-        if (res?.success) {
-          toast.success(res?.message || "Product Created Successfully");
-          router.push("/medicine-list");
-        }
+    formData.append("bodyData", JSON.stringify(serviceInfo));
+    // data?.image?.file && formData.append("productImage", data?.image?.file);
+
+    data?.image?.forEach((img) => {
+      if (img.file) {
+        formData.append(`productImages`, img.file);
       }
-    } catch (error) {
-      toast.error((error as string) || "Failed to create Car");
+    });
+
+    const res = await handleApiResponse(
+      type === "Edit" && id ? updateFN : createProuduceFN,
+      type === "Edit" && id ? { id, data: formData } : formData,
+      type === "Edit"
+        ? "Product Updated Successfully"
+        : "Product Created Successfully",
+    );
+    if (res?.success) {
+      router.push("/product-list");
     }
   };
 
@@ -130,6 +134,13 @@ export default function AddProductForm() {
               <FormInput<addCarForm>
                 name="price"
                 label="Price"
+                type="number"
+                placeholder="Write here"
+                className="bg-[#eaeef2]"
+              />
+              <FormInput<addCarForm>
+                name="discountPrice"
+                label="Discount Price (%)"
                 type="number"
                 placeholder="Write here"
                 className="bg-[#eaeef2]"
@@ -162,26 +173,17 @@ export default function AddProductForm() {
                       ["removeFormat"],
                     ],
                   }}
-                  onChange={(content) => console.log(content)}
+                  defaultValue={productData?.data?.productDescription || ""}
+                  onChange={(content) =>
+                    methods.setValue("description", content)
+                  }
                 />
               </div>
               <div className="">
-                {/* <label
-                  htmlFor="description"
-                  className="text-sm font-medium text-gray-700"
-                >
-                  Description
-                </label>
-                <textarea
-                  id="description"
-                  placeholder="Write here"
-                  className="bg-[#eaeef2] px-3 py-3 border-0 rounded-lg min-h-[130px] resize-none w-full outline-none mb-5"
-                  {...register("description")}
-                /> */}
                 <UploadMedia
                   name="image"
                   label="Upload Image"
-                  // default={productData?.data?.image}
+                  default={productData?.data?.productImages}
                 />
               </div>
             </div>

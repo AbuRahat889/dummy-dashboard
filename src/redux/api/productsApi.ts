@@ -14,18 +14,10 @@ const FoodApi = baseApi.injectEndpoints({
       providesTags: ["Products"],
     }),
 
-    //get single product
-    getSingleProducts: build.query({
-      query: (id) => ({
-        url: `/products/${id}`,
-        method: "GET",
-      }),
-      providesTags: ["Products"],
-    }),
     //create product
     createProducts: build.mutation({
       query: (data) => ({
-        url: `/products/create-product`,
+        url: `/products`,
         method: "POST",
         body: data,
       }),
@@ -35,12 +27,23 @@ const FoodApi = baseApi.injectEndpoints({
     // //update product
     updateProducts: build.mutation({
       query: ({ id, data }) => ({
-        url: `/products/update-product/${id}`,
+        url: `/products/${id}`,
         method: "PATCH",
         body: data,
       }),
       invalidatesTags: ["Products"],
     }),
+    // ******************************
+
+    //get single product
+    getSingleProducts: build.query({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["Products"],
+    }),
+
     // delete product
     deleteProducts: build.mutation({
       query: (id) => ({

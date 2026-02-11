@@ -7,12 +7,14 @@ const CategoriesApi = baseApi.injectEndpoints({
     //get all content
     getAllCategories: build.query({
       query: ({ page, limit }) => ({
-        url: `/categories/all-category`,
+        url: `/category`,
         method: "GET",
         params: { page, limit },
       }),
       providesTags: ["categories"],
     }),
+
+    // **********************
 
     //get single content
     getSingleCategories: build.query({
