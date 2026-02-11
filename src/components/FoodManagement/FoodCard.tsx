@@ -4,14 +4,69 @@ import fallbackCarImage from "@/assets/placeholder.webp";
 import Image from "next/image";
 import Link from "next/link";
 import { MediaButton } from "../ui/icon";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
+import { useDeleteProductsMutation } from "@/redux/api/productsApi";
+import { handleApiResponse } from "@/lib/handleApiResponse";
 
 interface CarCardProps {
   content: any;
 }
 
 export default function FoodCard({ content }: CarCardProps) {
+  const [deleteFN] = useDeleteProductsMutation();
+
   const handleDelete = async (id: string) => {
-    console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        // ✅ Show loading swal
+        Swal.fire({
+          title: "Deleting...",
+          text: "Please wait",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
+        try {
+          const res = await handleApiResponse(
+            deleteFN,
+            id,
+            "Product deleted successfully",
+            false,
+          );
+
+          // ✅ Close loading automatically by showing success swal
+          if (res.success) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your product has been deleted.",
+              icon: "success",
+            });
+          }
+        } catch (error) {
+          Swal.close(); // close loading
+
+          toast.error(
+            (typeof error === "string" && error) ||
+              (error && typeof error === "object" && "message" in error
+                ? (error as any).message
+                : undefined) ||
+              "Failed to delete Product",
+          );
+        }
+      }
+    });
   };
 
   return (
@@ -66,10 +121,18 @@ export default function FoodCard({ content }: CarCardProps) {
             {content?.discountPrice ? (
               <>
                 <span className="text-xl font-semibold text-[#f77902]">
-                  ${content?.discountPrice}
+                  $
+                  {(
+                    content.productPrice -
+                    (content.productPrice * content.discountPrice) / 100
+                  ).toFixed(2)}
                 </span>
+
                 <span className="text-sm line-through text-gray-400">
                   ${content?.productPrice}
+                </span>
+                <span className="text-sm text-gray-400">
+                  ({content?.discountPrice}% off)
                 </span>
               </>
             ) : (

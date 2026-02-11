@@ -3,16 +3,19 @@ import { cn } from "@/lib/utils";
 import { InputHTMLAttributes } from "react";
 import { useFormContext, FieldValues, Path } from "react-hook-form";
 
-interface FormInputProps<T extends FieldValues>
-  extends InputHTMLAttributes<HTMLInputElement> {
+interface FormInputProps<
+  T extends FieldValues,
+> extends InputHTMLAttributes<HTMLInputElement> {
   name: Path<T>;
   label?: string;
   className?: string;
+  required?: boolean;
 }
 
 export function FormInput<T extends FieldValues>({
   name,
   className,
+  required = true,
   ...rest
 }: FormInputProps<T>) {
   const {
@@ -33,22 +36,19 @@ export function FormInput<T extends FieldValues>({
       <input
         id={name}
         {...register(name, {
-          required: `${
-            name.charAt(0).toUpperCase() + name.slice(1)
-          } is required`,
+          required: required
+            ? `${name.charAt(0).toUpperCase() + name.slice(1)} is required`
+            : false,
           valueAsNumber: rest.type === "number", // convert input value to number if type is number
         })}
         {...rest}
         className={cn(
           "w-full px-3 py-3  rounded-xl text-[#999] text-base font-medium outline-none",
           error && "border-red-500",
-          className
+          className,
         )}
       />
       {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
     </div>
   );
 }
-
-//  <FormInput<FormValues> name="name" label="Full Name" placeholder="John Doe" />
-//         <FormInput<FormValues> name="age" label="Age" type="number" placeholder="30" />

@@ -33,7 +33,6 @@ const FoodApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Products"],
     }),
-    // ******************************
 
     //get single product
     getSingleProducts: build.query({
@@ -47,7 +46,7 @@ const FoodApi = baseApi.injectEndpoints({
     // delete product
     deleteProducts: build.mutation({
       query: (id) => ({
-        url: `/products/delete-product/${id}`,
+        url: `/products/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Products"],

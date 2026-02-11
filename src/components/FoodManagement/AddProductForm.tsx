@@ -23,7 +23,7 @@ interface addCarForm {
   price: number;
   discountPrice: number;
   quantity: number;
-  description: string;
+  description?: string;
   image: Array<{
     file: File | null;
     url?: string;
@@ -88,8 +88,8 @@ export default function AddProductForm() {
       productCategory: selectedCategory,
       productDescription: data.description,
       productPrice: data.price,
-      discountPrice: data.discountPrice,
       productStock: data.quantity,
+      ...(data.discountPrice ? { discountPrice: data.discountPrice } : {}),
     };
 
     formData.append("bodyData", JSON.stringify(serviceInfo));
@@ -108,6 +108,7 @@ export default function AddProductForm() {
         ? "Product Updated Successfully"
         : "Product Created Successfully",
     );
+    console.log(res);
     if (res?.success) {
       router.push("/product-list");
     }
@@ -144,6 +145,7 @@ export default function AddProductForm() {
                 type="number"
                 placeholder="Write here"
                 className="bg-[#eaeef2]"
+                required={false}
               />
               <FormInput<addCarForm>
                 name="quantity"

@@ -6,12 +6,15 @@ export const handleApiResponse = async <T>(
   apiFn: (data: T) => Promise<any>,
   data: T,
   successMessage = "Operation successful!",
+  isToast?: boolean,
 ) => {
   try {
     const res = await apiFn(data);
 
     if (res?.data?.success) {
-      toast.success(res?.data?.message || successMessage);
+      if (isToast) {
+        toast.success(res?.data?.message || successMessage);
+      }
       return { success: true, data: res.data };
     } else {
       const errorMessage =
