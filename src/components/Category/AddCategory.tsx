@@ -1,22 +1,23 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { FormProvider, useForm } from "react-hook-form";
-import { FormInput } from "../ui/Input";
-import UploadMedia from "../ui/UploadMedia";
+import { handleApiResponse } from "@/lib/handleApiResponse";
 import {
   useCreateCategoryMutation,
   useGetSingleCategoriesQuery,
   useUpdateCategoryMutation,
 } from "@/redux/api/categories";
-import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { FormInput } from "../ui/Input";
+import UploadMedia from "../ui/UploadMedia";
 
 type FormData = {
   categoryName: string;
   photos?: {
-    file: File;
-  }; // Add photos property to match usage
+    file: File | null;
+    url?: string;
+  }[];
 };
 
 interface AddCategoryProps {
@@ -29,7 +30,7 @@ export default function AddCategory({
   categorieId,
 }: AddCategoryProps) {
   const methods = useForm<FormData>({});
-  const { handleSubmit, reset } = methods;
+  const { handleSubmit } = methods;
   // get single category data when editing
   const { data: categoryData } = useGetSingleCategoriesQuery(categorieId, {
     skip: !categorieId,
@@ -39,7 +40,7 @@ export default function AddCategory({
   useEffect(() => {
     if (categorieId && categoryData?.data) {
       methods.reset({
-        categoryName: categoryData?.data?.name,
+        categoryName: categoryData?.data?.categoryName,
       });
     }
   }, [categorieId, categoryData, methods]);
@@ -52,30 +53,28 @@ export default function AddCategory({
   const [createCategoryFN, { isLoading }] = useCreateCategoryMutation();
   const onSubmit = async (data: FormData) => {
     const formData = new FormData();
-    formData.append("bodyData", JSON.stringify({ name: data?.categoryName }));
-    data?.photos?.file && formData.append("image", data?.photos?.file);
+    formData.append(
+      "bodyData",
+      JSON.stringify({ categoryName: data?.categoryName }),
+    );
 
-    try {
-      if (categorieId) {
-        const res = await updateCategoryFN({
-          id: categorieId,
-          formData,
-        }).unwrap();
-        if (res?.success) {
-          toast.success(res?.message || "Category updated successfully");
-          setIsModalOpen(false);
-          reset();
-        }
-      } else {
-        const res = await createCategoryFN(formData).unwrap();
-        if (res?.success) {
-          toast.success(res?.message || "Category created successfully");
-          setIsModalOpen(false);
-          reset();
-        }
+    data?.photos?.forEach((img: any) => {
+      if (img.file) {
+        formData.append(`image`, img.file);
       }
-    } catch (error) {
-      toast.error((error as string) || "Failed to upload document");
+    });
+
+    const res = await handleApiResponse(
+      categorieId && categoryData?.data ? updateCategoryFN : createCategoryFN,
+      categorieId && categoryData?.data
+        ? { id: categorieId, formData }
+        : formData,
+      categorieId && categoryData?.data
+        ? "Category Updated Successfully"
+        : "Category Created Successfully",
+    );
+    if (res?.success) {
+      setIsModalOpen(false);
     }
   };
 
@@ -101,8 +100,8 @@ export default function AddCategory({
             {isLoading || isUpdating
               ? "Uploading..."
               : categorieId
-              ? "Update Category"
-              : "Create Category"}
+                ? "Update Category"
+                : "Create Category"}
           </Button>
         </form>
       </FormProvider>

@@ -44,7 +44,7 @@ export default function CategoryManagement() {
   });
 
   const totalPages = data?.data?.meta?.totalPages;
-  const currentItems = dummyCategories || data?.data?.data || [];
+  const currentItems = data?.data?.data || [];
 
   return (
     <div className="w-[98%] h-full ">

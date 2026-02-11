@@ -14,41 +14,40 @@ const CategoriesApi = baseApi.injectEndpoints({
       providesTags: ["categories"],
     }),
 
-    // **********************
-
-    //get single content
-    getSingleCategories: build.query({
-      query: (id) => ({
-        url: `/categories/category/${id}`,
-        method: "GET",
-      }),
-      providesTags: ["categories"],
-    }),
-
     //create category
     createCategory: build.mutation({
       query: (formData) => ({
-        url: `/categories/create-category`,
+        url: `/category`,
         method: "POST",
         body: formData,
       }),
       invalidatesTags: ["categories"],
     }),
+    //get single content
+    getSingleCategories: build.query({
+      query: (id) => ({
+        url: `/category/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["categories"],
+    }),
 
     //update category
     updateCategory: build.mutation({
       query: ({ id, formData }) => ({
-        url: `/categories/update-category/${id}`,
+        url: `/category/${id}`,
         method: "PATCH",
         body: formData,
       }),
       invalidatesTags: ["categories"],
     }),
 
+    // **********************
+
     //delete category
     deleteCategory: build.mutation({
       query: (id) => ({
-        url: `/categories/delete-category/${id}`,
+        url: `/category/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["categories"],

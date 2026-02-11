@@ -9,22 +9,22 @@ import Modal from "../ui/modal";
 import AddCategory from "./AddCategory";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-
-import categoryImage from "@/assets/Group 1000001609.svg";
+import { useDeleteCategoryMutation } from "@/redux/api/categories";
+import { handleApiResponse } from "@/lib/handleApiResponse";
 
 interface CategoryCardProps {
   categories: {
     id: string;
-    name: string;
-    image?: string;
+    categoryName: string;
+    categoryImage: string;
   };
 }
 
 export default function CategoryCard({ categories }: CategoryCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [deleteFN] = useDeleteCategoryMutation();
   const handleDelete = async (id: string) => {
-    console.log(id);
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -38,15 +38,19 @@ export default function CategoryCard({ categories }: CategoryCardProps) {
         if (result.isConfirmed) {
           const toastId = toast.loading("Deleting...");
           try {
-            // const res = await deleteContent(id).unwrap();
+            const res = await handleApiResponse(
+              deleteFN,
+              id,
+              "Category Deleted Successfully",
+            );
             toast.dismiss(toastId);
-            // if (res.success) {
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your category has been deleted.",
-              icon: "success",
-            });
-            // }
+            if (res.success) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your category has been deleted.",
+                icon: "success",
+              });
+            }
           } catch (error) {
             toast.dismiss(toastId);
             toast.error(
@@ -78,7 +82,7 @@ export default function CategoryCard({ categories }: CategoryCardProps) {
       >
         <div className="w-full">
           <Image
-            src={categoryImage || categories?.image || defaultImage}
+            src={categories?.categoryImage || defaultImage}
             alt="category"
             width={500}
             height={500}
@@ -86,7 +90,7 @@ export default function CategoryCard({ categories }: CategoryCardProps) {
           />
         </div>
         <p className="text-center text-[#151B27] text-base font-semibold leading-[150%]">
-          {categories?.name}
+          {categories?.categoryName}
         </p>
         <div className="flex items-center justify-center gap-4 py-2">
           <div
