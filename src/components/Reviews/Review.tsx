@@ -1,10 +1,13 @@
 "use client";
 
-import profileImage from "@/assets/profile.jpg";
-import Image from "next/image";
+import {
+  useGetAllReviewsQuery,
+  useUpdateReviewStatusMutation,
+} from "@/redux/api/reviewsApi";
 import { useState } from "react";
 import { MediaButton } from "../ui/icon";
 import Pagination from "../ui/Pagination";
+import { handleApiResponse } from "@/lib/handleApiResponse";
 
 interface ReviewType {
   id: string;
@@ -23,60 +26,27 @@ interface ReviewType {
 }
 
 // Dummy data
-const dummyReviews: ReviewType[] = [
-  {
-    id: "1",
-    user: { fullName: "John Doe", profileImage: "" },
-    product: { name: "Burger Deluxe", price: 12.99 },
-    review: "Delicious burger, loved it!",
-    rating: 5,
-    createdAt: "2026-01-20T10:00:00Z",
-    status: "Pending",
-  },
-  {
-    id: "2",
-    user: { fullName: "Jane Smith", profileImage: "" },
-    product: { name: "Cheese Pizza", price: 15.5 },
-    review: "Good taste, but a bit oily.",
-    rating: 4,
-    createdAt: "2026-01-18T14:30:00Z",
-    status: "Approved",
-  },
-  {
-    id: "3",
-    user: { fullName: "Mike Johnson", profileImage: "" },
-    product: { name: "Fried Chicken", price: 10.75 },
-    review: "Perfectly crispy and juicy.",
-    rating: 5,
-    createdAt: "2026-01-17T09:15:00Z",
-    status: "Rejected",
-  },
-  {
-    id: "4",
-    user: { fullName: "Emily Brown", profileImage: "" },
-    product: { name: "Pasta Alfredo", price: 14.25 },
-    review: "Too creamy for my taste.",
-    rating: 3,
-    createdAt: "2026-01-16T12:45:00Z",
-    status: "Pending",
-  },
-];
 
 const Review = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [reviews, setReviews] = useState(dummyReviews);
 
-  const itemsPerPage = 15;
-  const totalPages = Math.ceil(reviews.length / itemsPerPage);
+  const { data } = useGetAllReviewsQuery({ page: currentPage, limit: 20 });
+  console.log(data?.data);
 
-  const currentItems = reviews.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage,
-  );
+  const currentItems = data?.data?.data || [];
+  const totalReviews = data?.data?.meta?.totalPages || 0;
 
-  const handleStatusChange = (id: string, status: ReviewType["status"]) => {
-    const updated = reviews.map((r) => (r.id === id ? { ...r, status } : r));
-    setReviews(updated);
+  const [updateFN, { isLoading }] = useUpdateReviewStatusMutation();
+  const handleStatusChange = async (
+    id: string,
+    status: ReviewType["status"],
+  ) => {
+    console.log(status);
+    await handleApiResponse(
+      updateFN,
+      { id, status: status },
+      "Review status updated successfully",
+    );
   };
 
   return (
@@ -87,8 +57,8 @@ const Review = () => {
             <th className="py-4 px-4">#</th>
             <th className="py-4 px-4">User</th>
             <th className="py-4 px-4">Product</th>
-            <th className="py-4 px-4">Review</th>
-            <th className="py-4 px-4">Price</th>
+            <th className="py-4 px-4">Review Title</th>
+            <th className="py-4 px-4">Comment</th>
             <th className="py-4 px-4">Created At</th>
             <th className="py-4 px-4">Rating</th>
             <th className="py-4 px-4">Status</th>
@@ -96,7 +66,7 @@ const Review = () => {
         </thead>
         <tbody>
           {currentItems?.length > 0 ? (
-            currentItems.map((info, index) => (
+            currentItems.map((info: any, index: number) => (
               <tr
                 key={info.id}
                 className="text-sm text-textColor font-normal bg-white rounded-full hover:bg-red-100"
@@ -106,29 +76,22 @@ const Review = () => {
 
                 {/* User Details */}
                 <td className="py-2 px-4 flex items-center">
-                  <Image
-                    src={info.user.profileImage || profileImage}
-                    alt="Profile"
-                    width={40}
-                    height={40}
-                    className="h-10 w-10 rounded-full mr-2"
-                  />
                   <span className="font-semibold truncate">
-                    {info.user.fullName}
+                    {info.userName}
                   </span>
                 </td>
 
                 {/* Product info */}
-                <td className="py-2 px-4">{info.product.name}</td>
+                <td className="py-2 px-4">{info.product?.productName}</td>
 
                 {/* Review text */}
                 <td className="py-2 px-4 text-secondaryColor truncate">
-                  {info.review}
+                  {info.title}
                 </td>
 
-                {/* Product Price */}
+                {/* Comment */}
                 <td className="py-2 px-4 text-secondaryColor">
-                  ${info.product.price}
+                  {info.comment}
                 </td>
 
                 {/* Created At */}
@@ -156,11 +119,21 @@ const Review = () => {
                         e.target.value as ReviewType["status"],
                       )
                     }
-                    className="border border-gray-300 rounded-md px-2 py-1 text-sm"
+                    className={`border rounded-md px-2 py-1 text-sm
+                      ${
+                        info.status === "PENDING"
+                          ? "bg-yellow-100 border-yellow-400 text-yellow-800"
+                          : info.status === "APPROVED"
+                            ? "bg-green-100 border-green-400 text-green-800"
+                            : "bg-red-100 border-red-400 text-red-800"
+                      }`}
                   >
-                    <option value="Pending">Pending</option>
-                    <option value="Approved">Approved</option>
-                    <option value="Rejected">Rejected</option>
+                    <option value="">
+                      {isLoading ? "Loading..." : info?.status}
+                    </option>
+                    <option value="PENDING">Pending</option>
+                    <option value="APPROVED">Approved</option>
+                    <option value="REJECTED">Rejected</option>
                   </select>
                 </td>
               </tr>
@@ -178,13 +151,11 @@ const Review = () => {
         </tbody>
       </table>
 
-      {totalPages > 1 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
-      )}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalReviews}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };

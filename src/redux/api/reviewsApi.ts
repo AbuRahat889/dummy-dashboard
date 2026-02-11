@@ -5,14 +5,24 @@ const ReviewsApi = baseApi.injectEndpoints({
     // get all userss with optional filter
     getAllReviews: build.query({
       query: ({ page, limit }) => ({
-        url: `/reviews/all-reviews`,
+        url: `/products/reviews`,
         method: "GET",
         params: { page, limit },
       }),
       providesTags: ["reviews"],
     }),
+    // update user status
+    updateReviewStatus: build.mutation({
+      query: ({ id, ...status }) => ({
+        url: `/products/reviews/${id}`,
+        method: "PATCH",
+        body: status,
+      }),
+      invalidatesTags: ["reviews"],
+    }),
   }),
 });
 
-export const { useGetAllReviewsQuery } = ReviewsApi;
+export const { useGetAllReviewsQuery, useUpdateReviewStatusMutation } =
+  ReviewsApi;
 export default ReviewsApi;
