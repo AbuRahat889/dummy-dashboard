@@ -6,9 +6,7 @@ const nextConfig: NextConfig = {
     domains: [
       "*",
       "nyc3.digitaloceanspaces.com",
-      "mijnvmta.ams3.digitaloceanspaces.com",
-      "smtech-space.nyc3.digitaloceanspaces.com",
-      "lh3.googleusercontent.com",
+      "emdadullah.api.zenexcloud.com",
       "api.zenexcloud.com",
     ], // Allows all domains (use with caution; see Next.js docs)
   },

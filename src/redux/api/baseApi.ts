@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 // Utility function to handle the base API URL
 const baseApiHandler = () => {
-  const apiUrl = "http://206.162.244.142:8021/api/v1";
+  const apiUrl = "http://localhost:5000/api/v1";
   // const apiUrl = "http://10.0.30.47:8020/api/v1";
   return apiUrl;
 };
@@ -27,6 +27,7 @@ export const baseApi = createApi({
   tagTypes: [
     "users",
     "Products",
+    // ********************
     "transactions",
     "orders",
     "dashboard",

@@ -6,13 +6,14 @@ const FoodApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     //get all product
     getAllProducts: build.query({
-      query: (search) => ({
+      query: (filters) => ({
         url: `/products`,
         method: "GET",
-        params: { ...search },
+        params: { ...filters },
       }),
       providesTags: ["Products"],
     }),
+
     //get single product
     getSingleProducts: build.query({
       query: (id) => ({
