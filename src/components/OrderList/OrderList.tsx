@@ -11,15 +11,20 @@ export default function OrderList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTab, setActiveTab] = useState(1);
 
-  const { data } = useGetAllOrdersQuery({
-    filter:
-      activeTab === 1 ? "PENDING" : activeTab === 2 ? "PROCESSING" : undefined,
+
+
+  const { data, isLoading, isFetching, isError } = useGetAllOrdersQuery({
+    status:
+      activeTab === 1 ? "PENDING" : activeTab === 2 ? "COMPLETE" : "CANCEL",
     page: currentPage,
     limit: 15,
+    search: searchValue,
   });
 
+  console.log(data?.data?.data);
+
   const totalPages = data?.data?.meta?.totalPage;
-  // const currentItems = data?.data?.data || [];
+  const currentItems = data?.data?.data || [];
   const onSearchChange = (value: string) => {
     setSearchValue(value);
   };
@@ -30,34 +35,34 @@ export default function OrderList() {
       label: "Pending",
       children: (
         <OrderTable
-        // currentItems={currentItems}
-        // isLoading={isLoading}
-        // isFetching={isFetching}
-        // isError={isError}
+          currentItems={currentItems}
+          isLoading={isLoading}
+          isFetching={isFetching}
+          isError={isError}
         />
       ),
     },
     {
       key: "2",
-      label: "Processing",
+      label: "Complete",
       children: (
         <OrderTable
-        // currentItems={currentItems}
-        // isLoading={isLoading}
-        // isFetching={isFetching}
-        // isError={isError}
+          currentItems={currentItems}
+          isLoading={isLoading}
+          isFetching={isFetching}
+          isError={isError}
         />
       ),
     },
     {
       key: "3",
-      label: "History",
+      label: "Cancel",
       children: (
         <OrderTable
-        // currentItems={currentItems}
-        // isLoading={isLoading}
-        // isFetching={isFetching}
-        // isError={isError}
+          currentItems={currentItems}
+          isLoading={isLoading}
+          isFetching={isFetching}
+          isError={isError}
         />
       ),
     },

@@ -97,7 +97,7 @@ export default function AddProductForm() {
 
     data?.image?.forEach((img) => {
       if (img.file) {
-        formData.append(`productImages`, img.file);
+        formData.append(`images`, img.file);
       }
     });
 

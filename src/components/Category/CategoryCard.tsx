@@ -16,13 +16,14 @@ interface CategoryCardProps {
   categories: {
     id: string;
     categoryName: string;
-    categoryImage: string;
+    categoryImage: string[];
   };
 }
 
 export default function CategoryCard({ categories }: CategoryCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  console.log(categories);
   const [deleteFN] = useDeleteCategoryMutation();
   const handleDelete = async (id: string) => {
     try {
@@ -80,15 +81,18 @@ export default function CategoryCard({ categories }: CategoryCardProps) {
           "rounded-lg shadow-cardboxshadow bg-white w-full md:w-44 ",
         )}
       >
-        <div className="w-full">
-          <Image
-            src={categories?.categoryImage || defaultImage}
-            alt="category"
-            width={500}
-            height={500}
-            className="h-24 w-24 mx-auto mb-2 rounded-t-lg"
-          />
-        </div>
+        {categories?.categoryImage?.map((img: any, index: number) => (
+          <div key={index} className="w-full">
+            <Image
+              src={img || defaultImage}
+              alt="category"
+              width={500}
+              height={500}
+              className="h-24 w-24 mx-auto mb-2 rounded-t-lg"
+            />
+          </div>
+        ))}
+
         <p className="text-center text-[#151B27] text-base font-semibold leading-[150%]">
           {categories?.categoryName}
         </p>

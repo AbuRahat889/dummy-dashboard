@@ -60,7 +60,7 @@ export default function AddCategory({
 
     data?.photos?.forEach((img: any) => {
       if (img.file) {
-        formData.append(`image`, img.file);
+        formData.append(`images`, img.file);
       }
     });
 
