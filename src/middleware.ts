@@ -3,15 +3,12 @@ import type { NextRequest } from "next/server";
 
 // Role access configuration
 const roleAccess: Record<string, string[]> = {
-  SUPERADMIN: [
+  ADMIN: [
     "/",
-    "/user-management",
-    "/medicine-list",
+    "/product-list",
     "/order-list",
-    "/transactions",
     "/category-management",
     "/reviews",
-    "/add-product",
   ],
 };
 
@@ -42,13 +39,10 @@ export function middleware(req: NextRequest) {
 // Apply middleware to specific routes
 export const config = {
   matcher: [
-    // "/",
-    // "/user-management",
-    // "/medicine-list",
-    // "/order-list",
-    // "/transactions",
-    // "/category-management",
-    // "/reviews",
-    // "/add-product",
+    "/",
+    "/product-list",
+    "/order-list",
+    "/category-management",
+    "/reviews",
   ],
 };

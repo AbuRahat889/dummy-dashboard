@@ -7,15 +7,15 @@ const DashboardApi = baseApi.injectEndpoints({
     //get all user from admin dashboard
     getAllDashboardInfo: build.query({
       query: () => ({
-        url: `/users/dashboard-data`,
+        url: `/dashboard/overview`,
         method: "GET",
       }),
       providesTags: ["dashboard"],
     }),
 
-    getDashboardPerformance: build.query({
+    getTotalEarning: build.query({
       query: (year) => ({
-        url: `/users/yearly-graph-data`,
+        url: `/dashboard/total-earning`,
         method: "GET",
         params: year,
       }),
@@ -24,6 +24,6 @@ const DashboardApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllDashboardInfoQuery, useGetDashboardPerformanceQuery } =
+export const { useGetAllDashboardInfoQuery, useGetTotalEarningQuery } =
   DashboardApi;
 export default DashboardApi;

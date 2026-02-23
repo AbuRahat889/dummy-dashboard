@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 // Utility function to handle the base API URL
 const baseApiHandler = () => {
   const apiUrl = "https://yanamart-server.vercel.app/api/v1";
-  // const apiUrl = "http://10.0.30.47:8020/api/v1";
+  // const apiUrl = "http://localhost:5000/api/v1";
   return apiUrl;
 };
 

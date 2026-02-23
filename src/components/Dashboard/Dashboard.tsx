@@ -2,26 +2,11 @@
 
 import {
   useGetAllDashboardInfoQuery,
-  useGetDashboardPerformanceQuery,
+  useGetTotalEarningQuery,
 } from "@/redux/api/dashboard";
 import { useState } from "react";
 import Chart from "./Charts";
 import { StatCard } from "./StatCards";
-
-export const dummyChartData = [
-  { month: "Jan", revenue: 12000, users: 450 },
-  { month: "Feb", revenue: 15000, users: 500 },
-  { month: "Mar", revenue: 18000, users: 550 },
-  { month: "Apr", revenue: 17000, users: 600 },
-  { month: "May", revenue: 19000, users: 650 },
-  { month: "Jun", revenue: 22000, users: 700 },
-  { month: "Jul", revenue: 24000, users: 750 },
-  { month: "Aug", revenue: 23000, users: 800 },
-  { month: "Sep", revenue: 25000, users: 850 },
-  { month: "Oct", revenue: 27000, users: 900 },
-  { month: "Nov", revenue: 30000, users: 950 },
-  { month: "Dec", revenue: 32000, users: 1000 },
-];
 
 const getYearOptions = () => {
   const currentYear = new Date().getFullYear();
@@ -45,7 +30,7 @@ function Dashboard() {
     label: currentYear.toString(),
   });
 
-  const { data: performanceData } = useGetDashboardPerformanceQuery({
+  const { data: performanceData } = useGetTotalEarningQuery({
     year: selectedYear.value,
   });
 
@@ -56,23 +41,23 @@ function Dashboard() {
     <div className="overflow-y-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-white p-6 rounded-2xl">
         <StatCard
-          title="Total Revenue"
-          value={dashboardInfo?.totalRevenue || "50"}
+          title="Today's Orders"
+          value={dashboardInfo?.todaysOrders || "0"}
           bg="bg-[#5891c9]"
         />
         <StatCard
-          title="Total User"
-          value={dashboardInfo?.totalUsers || "100"}
+          title="Total Earning"
+          value={dashboardInfo?.totalEarning || "0"}
           bg="bg-[#7dbfc1]"
         />
         <StatCard
           title="Total Order"
-          value={dashboardInfo?.totalOrders || "90"}
+          value={dashboardInfo?.totalOrders || "0"}
           bg="bg-[#6d9288]"
         />
         <StatCard
-          title="Total Delivery"
-          value={dashboardInfo?.totalDelivery || "70"}
+          title="Total Products"
+          value={dashboardInfo?.totalProducts || "0"}
           bg="bg-[#c1b185]"
         />
       </div>
@@ -101,7 +86,7 @@ function Dashboard() {
 
           {/* Chart */}
           <div className="">
-            <Chart chartData={dummyChartData || performanceData?.data} />
+            <Chart chartData={performanceData?.data?.chartData || []} />
           </div>
         </div>
       </div>
