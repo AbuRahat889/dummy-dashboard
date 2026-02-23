@@ -17,8 +17,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Majinda - Admin Dashboard",
-  description: "Welcome, Admin! Manage Majinda with Ease.",
+  title: "yanamart - Admin Dashboard",
+  description: "Welcome, Admin! Manage yanamart with Ease.",
 };
 
 // Bellota
