@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import logo from "@/assets/logo.jpg";
+import logo from "@/assets/logo2.png";
 import profileImage from "@/assets/profile.jpg";
 import { useGetMeQuery } from "@/redux/api/auth";
 
@@ -10,16 +10,16 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`h-24 flex px-2 md:px-5  bg-primaryColor w-full rounded-b-[32px]`}
+      className={`h-24 flex px-2 md:px-5  bg-[#efa342] w-full rounded-b-[32px]`}
     >
       <div className="flex justify-between w-[95%] mx-auto">
-        <div className="hidden md:flex items-center rounded-full">
+        <div className="hidden md:flex items-center ">
           <Image
             src={logo}
             alt="Logo"
             height={200}
             width={200}
-            className="object-contain w-20 rounded-full"
+            className="object-contain w-full h-full "
             priority
           />
         </div>

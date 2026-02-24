@@ -1,5 +1,5 @@
 "use client";
-import logo from "@/assets/logo.jpg";
+import logo from "@/assets/logo.png";
 import { MediaButton } from "@/components/ui/icon";
 import Modal from "@/components/ui/modal";
 import { navigation } from "@/constants/Navigation";

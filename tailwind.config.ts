@@ -11,13 +11,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        primaryColor: "#2563eb",
+        primaryColor: "#efa342",
         textColor: "#151b27",
         secondaryColor: "#585858",
         borderColor: "#d9d9d9",
 
         backgroundColor: "#e8e8e9",
-        
+
         foreground: "hsl(var(--foreground))",
         background: "hsl(var(--background))",
         card: {

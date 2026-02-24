@@ -1,7 +1,7 @@
 "use client";
 
-import image from "@/assets/loginImage.png";
-import logo2 from "@/assets/logo.jpg";
+import image from "@/assets/loginImage.jpg";
+import logo2 from "@/assets/logo.png";
 import Loader from "@/components/ui/Loader";
 import { useAdminLoginMutation } from "@/redux/api/auth";
 import { setUser } from "@/redux/slices/authSlice";
@@ -51,7 +51,7 @@ const ForgotPassword = () => {
             user: res?.data,
             token: res?.data?.accessToken,
             isAuthenticated: true,
-          })
+          }),
         );
         window.location.replace("/");
       } else {
@@ -76,11 +76,11 @@ const ForgotPassword = () => {
     <div className="flex flex-col md:flex-row w-full ">
       <ToastContainer />
       {/* Left Section */}
-      <div className="hidden md:block w-full ">
+      <div className="hidden md:flex w-full justify-center items-center">
         <Image
           src={image}
           alt="wapigo"
-          className="h-full w-full lg:h-[100vh]  "
+          className="h-full w-full  "
           height={800}
           width={800}
           priority
@@ -95,7 +95,7 @@ const ForgotPassword = () => {
             alt="logo"
             height={200}
             width={200}
-            className="h-44 rounded-full"
+            className=" rounded-full"
           />
         </Link>
 
@@ -103,8 +103,7 @@ const ForgotPassword = () => {
           <div>
             <h2 className="text-4xl lg:text-[40px] text-[#171717] font-bold w-full">
               Welcome, Admin! Manage{" "}
-              <span className="text-primaryColor">Wapigo</span> <br />
-              <span> with Ease.</span>
+              <span className="text-[#efa342] ">YanaMart </span> with Ease
             </h2>
 
             <p className="text-base text-[#6C7278] font-medium  mb-6 mt-4">
